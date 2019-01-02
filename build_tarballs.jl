@@ -9,38 +9,12 @@ version = v"181.0.0-cfd8"
 sources = [
     "https://github.com/vurtun/nuklear.git" =>
     "181cfd86c47ae83eceabaf4e640587b844e613b6",
-
+    "wrapper",
 ]
 
 # Bash recipe for building across all platforms
 script = raw"""
 cd $WORKSPACE/srcdir
-cd nuklear/
-
-cat > nuklear.c << 'END'
-#define NK_IMPLEMENTATION
-#define NK_INCLUDE_FIXED_TYPES
-#define NK_INCLUDE_DEFAULT_ALLOCATOR
-#define NK_INCLUDE_STANDARD_IO
-#define NK_INCLUDE_VERTEX_BUFFER_OUTPUT
-#define NK_INCLUDE_FONT_BAKING
-#define NK_INCLUDE_DEFAULT_FONT
-#include "nuklear.h"
-END
-
-cat > CMakeLists.txt << 'END'
-cmake_minimum_required(VERSION 3.8.0)
-project(nuklear)
-
-add_library(nuklear SHARED nuklear.c nuklear.h)
-
-install(TARGETS nuklear
-        RUNTIME DESTINATION bin
-        LIBRARY DESTINATION lib
-        ARCHIVE DESTINATION lib/static)
-
-install(FILES nuklear.h DESTINATION include)
-END
 
 mkdir build && cd build
 cmake -DCMAKE_INSTALL_PREFIX=$prefix -DCMAKE_TOOLCHAIN_FILE=/opt/$target/$target.toolchain ..
