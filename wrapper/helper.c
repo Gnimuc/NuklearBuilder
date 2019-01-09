@@ -35,6 +35,12 @@ void nk_delete_user_font(struct nk_user_font *ufont) {
 }
 
 // helper
+void nk_set_clip(struct nk_context *ctx, nk_plugin_copy clipboard_copy, nk_plugin_paste clipboard_paste) {
+    ctx->clip.copy = clipboard_copy;
+    ctx->clip.paste = clipboard_paste;
+    ctx->clip.userdata = nk_handle_ptr(0);
+}
+
 void nk_unpack_draw_command(struct nk_draw_command *cmd, unsigned int *elem_count, struct nk_rect *clip_rect, nk_handle *texture) {
     *elem_count = cmd->elem_count;
     *clip_rect = cmd->clip_rect;
