@@ -73,3 +73,7 @@ struct nk_convert_config* nk_set_convert_config(enum nk_anti_aliasing AA, struct
     config->line_AA = AA;
     return config;
 }
+
+struct nk_user_font* nk_get_font_handle(struct nk_font *font) {
+    return &font->handle;
+}
